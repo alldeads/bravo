@@ -32,6 +32,7 @@ export function AppSidebar() {
                       title: 'Products',
                       href: productsIndex(),
                       icon: Package,
+                      cacheTags: 'products',
                   },
               ]
             : []),
