@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 
 /**
  * @extends Factory<Product>
@@ -11,23 +12,30 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ProductFactory extends Factory
 {
     /**
+     * The next value used to keep generated SKUs/names unique.
+     */
+    protected static int $sequence = 0;
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
+        $sequence = ++static::$sequence;
+
         return [
-            'sku' => strtoupper(fake()->unique()->bothify('??-####')),
-            'name' => fake()->words(3, true),
-            'description' => fake()->optional()->sentence(),
-            'unit' => fake()->randomElement(config('products.units')),
-            'is_material' => fake()->boolean(),
-            'is_sellable' => fake()->boolean(),
-            'is_purchasable' => fake()->boolean(),
+            'sku' => 'SKU-'.str_pad((string) $sequence, 5, '0', STR_PAD_LEFT),
+            'name' => 'Product '.$sequence,
+            'description' => null,
+            'unit' => Arr::random(config('products.units')),
+            'is_material' => (bool) random_int(0, 1),
+            'is_sellable' => (bool) random_int(0, 1),
+            'is_purchasable' => (bool) random_int(0, 1),
             'is_active' => true,
-            'price' => fake()->optional()->randomFloat(2, 1, 1000),
-            'cost' => fake()->optional()->randomFloat(2, 1, 800),
+            'price' => random_int(100, 100000) / 100,
+            'cost' => random_int(100, 80000) / 100,
         ];
     }
 
