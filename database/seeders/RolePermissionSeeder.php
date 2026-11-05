@@ -29,6 +29,9 @@ class RolePermissionSeeder extends Seeder
             'products.view',
             'products.create',
             'products.edit',
+            'invoices.view',
+            'invoices.create',
+            'invoices.edit',
         ],
         'user' => [
             'dashboard.view',
@@ -57,6 +60,10 @@ class RolePermissionSeeder extends Seeder
         'products.create',
         'products.edit',
         'products.delete',
+        'invoices.view',
+        'invoices.create',
+        'invoices.edit',
+        'invoices.delete',
     ];
 
     public function run(): void

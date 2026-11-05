@@ -1,5 +1,12 @@
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutGrid, Menu, Package, Search, Settings } from 'lucide-react';
+import {
+    FileText,
+    LayoutGrid,
+    Menu,
+    Package,
+    Search,
+    Settings,
+} from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { Breadcrumbs } from '@/components/breadcrumbs';
@@ -28,6 +35,7 @@ import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useInitials } from '@/hooks/use-initials';
 import { cn } from '@/lib/utils';
 import { dashboard } from '@/routes';
+import { index as invoicesIndex } from '@/routes/invoices';
 import { index as productsIndex } from '@/routes/products';
 import { index as settingsIndex } from '@/routes/settings';
 import type { BreadcrumbItem, NavItem } from '@/types';
@@ -57,6 +65,15 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                       title: 'Products',
                       href: productsIndex(),
                       icon: Package,
+                  },
+              ]
+            : []),
+        ...(auth.permissions.includes('invoices.view')
+            ? [
+                  {
+                      title: 'Invoices',
+                      href: invoicesIndex(),
+                      icon: FileText,
                   },
               ]
             : []),

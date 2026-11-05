@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutGrid, Package, Settings } from 'lucide-react';
+import { FileText, LayoutGrid, Package, Settings } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -13,6 +13,7 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
+import { index as invoicesIndex } from '@/routes/invoices';
 import { index as productsIndex } from '@/routes/products';
 import { index as settingsIndex } from '@/routes/settings';
 import type { Auth, NavItem } from '@/types';
@@ -33,6 +34,16 @@ export function AppSidebar() {
                       href: productsIndex(),
                       icon: Package,
                       cacheTags: 'products',
+                  },
+              ]
+            : []),
+        ...(auth.permissions.includes('invoices.view')
+            ? [
+                  {
+                      title: 'Invoices',
+                      href: invoicesIndex(),
+                      icon: FileText,
+                      cacheTags: 'invoices',
                   },
               ]
             : []),

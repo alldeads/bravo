@@ -141,3 +141,50 @@
         @apply bg-background text-foreground;
     }
 }
+
+/*
+ * Printing an invoice: print only the invoice sheet, at the top-left of
+ * the page. Everything that neither is nor contains the sheet is removed,
+ * and the containers around it (sidebar inset, padding, scroll wrappers)
+ * are flattened so their offsets can't push the sheet off the page.
+ */
+@media print {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    html:has(.invoice-print),
+    html:has(.invoice-print) body {
+        background: #fff !important;
+        color-scheme: light;
+    }
+
+    body:has(.invoice-print)
+        *:not(.invoice-print, .invoice-print *, :has(.invoice-print)) {
+        display: none !important;
+    }
+
+    body *:has(.invoice-print) {
+        display: block !important;
+        position: static !important;
+        inset: auto !important;
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    .invoice-print {
+        margin: 0 !important;
+        box-shadow: none !important;
+    }
+}
